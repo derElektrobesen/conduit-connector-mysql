@@ -86,8 +86,6 @@ github.com/chavacava/garif v0.1.0 h1:2JHa3hbYf5D9dsgseMKAmc/MZ109otzgNFk5s87H9Pc
 github.com/chavacava/garif v0.1.0/go.mod h1:XMyYCkEL58DF0oyW4qDjjnPWONs2HBqYKI+UIPD+Gww=
 github.com/ckaznocha/intrange v0.3.0 h1:VqnxtK32pxgkhJgYQEeOArVidIPg+ahLP7WBOXZd5ZY=
 github.com/ckaznocha/intrange v0.3.0/go.mod h1:+I/o2d2A1FBHgGELbGxzIcyd3/9l9DuwjM8FsbSS3Lo=
-github.com/conduitio-labs/conduit-connector-mysql v0.0.0-20250205045933-2c3514b6baf2 h1:Uh0xbTMi9J73OS+9A4e2UYoH/BRM9nionf6OYvpH/RM=
-github.com/conduitio-labs/conduit-connector-mysql v0.0.0-20250205045933-2c3514b6baf2/go.mod h1:gRIk1aFVXYCtrNv6DolZdbZu5VO/+DnSD6qnCgOJ0So=
 github.com/conduitio/conduit-commons v0.5.1 h1:o6Lh3LhBuorDfVVlWyj3tYoYbBUUPTMiJE2zefiBuSo=
 github.com/conduitio/conduit-commons v0.5.1/go.mod h1:FmJI9zOxX+HDiqculivPmekaUASZdubOJnI8sOOLAXk=
 github.com/conduitio/conduit-connector-protocol v0.9.0 h1:7MailxYxAsr376Nz8WStVYSXnlf86bjtzpA/d/66if0=

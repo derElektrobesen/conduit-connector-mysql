@@ -1,10 +1,9 @@
-module derElektroBesen/conduit-connector-mysql
+module github.com/derElektroBesen/conduit-connector-mysql
 
 go 1.23.5
 
 require (
 	github.com/Masterminds/squirrel v1.5.4
-	github.com/conduitio-labs/conduit-connector-mysql v0.0.0-20250205045933-2c3514b6baf2
 	github.com/conduitio/conduit-commons v0.5.1
 	github.com/conduitio/conduit-connector-sdk v0.13.1
 	github.com/go-mysql-org/go-mysql v1.11.0

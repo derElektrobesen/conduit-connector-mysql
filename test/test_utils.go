@@ -23,7 +23,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/conduitio-labs/conduit-connector-mysql/common"
+	"github.com/derElektroBesen/conduit-connector-mysql/common"
 	"github.com/conduitio/conduit-commons/opencdc"
 	"github.com/conduitio/conduit-connector-sdk/schema"
 	"github.com/go-mysql-org/go-mysql/canal"
