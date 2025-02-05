@@ -14,11 +14,21 @@
 
 package mysql
 
-import sdk "github.com/conduitio/conduit-connector-sdk"
+import (
+	sdk "github.com/conduitio/conduit-connector-sdk"
+)
 
-// Connector combines all constructors for each plugin in one struct.
-var Connector = sdk.Connector{
-	NewSpecification: Specification,
-	NewSource:        NewSource,
-	NewDestination:   NewDestination,
+// version is set during the build process with ldflags (see Makefile).
+// Default version matches default from runtime/debug.
+var version = "(devel)"
+
+// Specification returns the connector's specification.
+func Specification() sdk.Specification {
+	return sdk.Specification{
+		Name:        "mysql",
+		Summary:     "A Conduit Connector for MySQL",
+		Description: "A source and destination connector for MySQL",
+		Version:     version,
+		Author:      "Meroxa, Inc.",
+	}
 }
