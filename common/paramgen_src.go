@@ -11,7 +11,6 @@ const (
 	SourceConfigDisableCanalLogs               = "disableCanalLogs"
 	SourceConfigDsn                            = "dsn"
 	SourceConfigFetchSize                      = "fetchSize"
-	SourceConfigMysql55SupportEnabled          = "mysql55SupportEnabled"
 	SourceConfigSdkBatchDelay                  = "sdk.batch.delay"
 	SourceConfigSdkBatchSize                   = "sdk.batch.size"
 	SourceConfigSdkSchemaContextEnabled        = "sdk.schema.context.enabled"
@@ -46,12 +45,6 @@ func (SourceConfig) Parameters() map[string]config.Parameter {
 			Default:     "10000",
 			Description: "FetchSize limits how many rows should be retrieved on each database fetch.",
 			Type:        config.ParameterTypeInt,
-			Validations: []config.Validation{},
-		},
-		SourceConfigMysql55SupportEnabled: {
-			Default:     "false",
-			Description: "MySQL55Compatibility enables MySQL 5.5 support:\n* Read-only transactions are not supported in MySQL 5.5\n  (https://dev.mysql.com/doc/refman/8.4/en/commit.html)",
-			Type:        config.ParameterTypeBool,
 			Validations: []config.Validation{},
 		},
 		SourceConfigSdkBatchDelay: {

@@ -45,7 +45,6 @@ type combinedIteratorConfig struct {
 	serverID              string
 	mysqlConfig           *mysqldriver.Config
 	disableCanalLogging   bool
-	mysql55Compatibility  bool
 }
 
 func newCombinedIterator(
@@ -65,14 +64,13 @@ func newCombinedIterator(
 	}
 
 	snapshotIterator, err := newSnapshotIterator(snapshotIteratorConfig{
-		db:                   config.db,
-		tableSortColumns:     config.tableSortCols,
-		fetchSize:            config.fetchSize,
-		startPosition:        config.startSnapshotPosition,
-		database:             config.database,
-		tables:               config.tables,
-		serverID:             config.serverID,
-		mysql55Compatibility: config.mysql55Compatibility,
+		db:               config.db,
+		tableSortColumns: config.tableSortCols,
+		fetchSize:        config.fetchSize,
+		startPosition:    config.startSnapshotPosition,
+		database:         config.database,
+		tables:           config.tables,
+		serverID:         config.serverID,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("failed to create snapshot iterator: %w", err)

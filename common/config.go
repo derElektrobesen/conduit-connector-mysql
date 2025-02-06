@@ -50,11 +50,6 @@ type SourceConfig struct {
 	// nor a defined sorting column. The opencdc.Position won't record the last record
 	// read from a table.
 	UnsafeSnapshot bool `json:"unsafeSnapshot"`
-
-	// MySQL55Compatibility enables MySQL 5.5 support:
-	// * Read-only transactions are not supported in MySQL 5.5
-	//   (https://dev.mysql.com/doc/refman/8.4/en/commit.html)
-	MySQL55Compatibility bool `json:"mysql55SupportEnabled" default:"false"`
 }
 
 func (c SourceConfig) Validate(_ context.Context) error {

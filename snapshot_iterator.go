@@ -55,14 +55,13 @@ type (
 		config       snapshotIteratorConfig
 	}
 	snapshotIteratorConfig struct {
-		db                   *sqlx.DB
-		tableSortColumns     map[string]string
-		fetchSize            uint64
-		startPosition        *common.SnapshotPosition
-		database             string
-		tables               []string
-		serverID             string
-		mysql55Compatibility bool
+		db               *sqlx.DB
+		tableSortColumns map[string]string
+		fetchSize        uint64
+		startPosition    *common.SnapshotPosition
+		database         string
+		tables           []string
+		serverID         string
 	}
 )
 
@@ -115,11 +114,10 @@ func (s *snapshotIterator) setupWorkers(ctx context.Context) error {
 		worker := newFetchWorker(s.config.db, s.data, fetchWorkerConfig{
 			// the snapshot worker will update the last position, so we need to
 			// clone it to avoid dataraces
-			lastPosition:         s.lastPosition.Clone(),
-			table:                table,
-			fetchSize:            s.config.fetchSize,
-			sortColName:          sortCol,
-			mysql55Compatibility: s.config.mysql55Compatibility,
+			lastPosition: s.lastPosition.Clone(),
+			table:        table,
+			fetchSize:    s.config.fetchSize,
+			sortColName:  sortCol,
 		})
 
 		isTableEmpty, err := worker.fetchStartEnd(ctx)
