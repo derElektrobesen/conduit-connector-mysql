@@ -48,13 +48,7 @@ func (s *Source) Config() sdk.SourceConfig {
 func (s *Source) Parameters() config.Parameters {
 	// Parameters is a map of named Parameters that describe how to configure
 	// the Source. Parameters can be generated from SourceConfig with paramgen.
-	p := s.config.Parameters()
-
-	param := p[common.SourceConfigSdkBatchDelay]
-	param.Validations = []config.Validation{}
-	p[common.SourceConfigSdkBatchDelay] = param
-
-	return p
+	return s.config.Parameters()
 }
 
 func (s *Source) Open(ctx context.Context, sdkPos opencdc.Position) (err error) {
