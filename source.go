@@ -18,10 +18,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/derElektroBesen/conduit-connector-mysql/common"
 	"github.com/conduitio/conduit-commons/config"
 	"github.com/conduitio/conduit-commons/opencdc"
 	sdk "github.com/conduitio/conduit-connector-sdk"
+	"github.com/derElektroBesen/conduit-connector-mysql/common"
 	"github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 )
@@ -48,7 +48,13 @@ func (s *Source) Config() sdk.SourceConfig {
 func (s *Source) Parameters() config.Parameters {
 	// Parameters is a map of named Parameters that describe how to configure
 	// the Source. Parameters can be generated from SourceConfig with paramgen.
-	return s.config.Parameters()
+	p := s.config.Parameters()
+
+	param := p[common.SourceConfigSdkBatchDelay]
+	param.Validations = []config.Validation{}
+	p[common.SourceConfigSdkBatchDelay] = param
+
+	return p
 }
 
 func (s *Source) Open(ctx context.Context, sdkPos opencdc.Position) (err error) {
