@@ -40,10 +40,11 @@ type fetchWorker interface {
 }
 
 type fetchWorkerConfig struct {
-	lastPosition common.SnapshotPosition
-	table        string
-	fetchSize    uint64
-	sortColName  string
+	lastPosition         common.SnapshotPosition
+	table                string
+	fetchSize            uint64
+	sortColName          string
+	mysql55Compatibility bool
 }
 
 func newFetchWorker(db *sqlx.DB, data chan fetchData, config fetchWorkerConfig) fetchWorker {
@@ -105,9 +106,17 @@ func (w *fetchWorkerByKey) run(ctx context.Context) (err error) {
 	sdk.Logger(ctx).Info().Msgf("started fetch worker by key for table %q", w.config.table)
 	defer sdk.Logger(ctx).Info().Msgf("finished fetch worker by key for table %q", w.config.table)
 
+	readOnlyTransaction := true
+	if w.config.mysql55Compatibility {
+		// MySQL 5.5 doesn't support read only transcations.
+		// This feature is not so important to completely drop MySQL 5.5
+		// support.
+		readOnlyTransaction = false
+	}
+
 	tx, err := w.db.BeginTxx(ctx, &sql.TxOptions{
 		Isolation: sql.LevelRepeatableRead,
-		ReadOnly:  true,
+		ReadOnly:  readOnlyTransaction,
 	})
 	if err != nil {
 		return fmt.Errorf("failed to create transaction: %w", err)
