@@ -22,6 +22,7 @@ import (
 	"github.com/conduitio/conduit-commons/opencdc"
 	sdk "github.com/conduitio/conduit-connector-sdk"
 	"github.com/go-sql-driver/mysql"
+	gover "github.com/hashicorp/go-version"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -81,6 +82,11 @@ func (s *Source) Open(ctx context.Context, sdkPos opencdc.Position) (err error) 
 		return fmt.Errorf("failed to get server id: %w", err)
 	}
 
+	mysqlVer, err := getMySQLVersion(s.db)
+	if err != nil {
+		return fmt.Errorf("failed to get MySQL version: %w", err)
+	}
+
 	// set positions by default to nil, so that iterators know if starting from no position
 	var pos common.Position
 	if sdkPos != nil {
@@ -102,6 +108,7 @@ func (s *Source) Open(ctx context.Context, sdkPos opencdc.Position) (err error) 
 		mysqlConfig:           mysqlCfg,
 		disableCanalLogging:   s.config.DisableCanalLogs,
 		fetchSize:             s.config.FetchSize,
+		mysqlVer:              mysqlVer,
 	})
 	if err != nil {
 		return fmt.Errorf("failed to create snapshot iterator: %w", err)
@@ -188,6 +195,27 @@ func getPrimaryKey(db *sqlx.DB, database, table string) (string, error) {
 	}
 
 	return primaryKey.ColumnName, nil
+}
+
+func getMySQLVersion(db *sqlx.DB) (*gover.Version, error) {
+	var ver struct {
+		Version string `db:"version"`
+	}
+
+	row := db.QueryRowx(`SELECT version() as version`)
+	if err := row.StructScan(&ver); err != nil {
+		return nil, fmt.Errorf("failed to select version(): %w", err)
+	}
+	if err := row.Err(); err != nil {
+		return nil, fmt.Errorf("failed to scan version(): %w", err)
+	}
+
+	ret, err := gover.NewVersion(ver.Version)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse version %q: %w", ver.Version, err)
+	}
+
+	return ret, nil
 }
 
 func (s *Source) getTableKeys(ctx context.Context, dbName string) (map[string]string, error) {

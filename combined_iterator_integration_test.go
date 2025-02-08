@@ -22,6 +22,7 @@ import (
 	"github.com/conduitio-labs/conduit-connector-mysql/common"
 	testutils "github.com/conduitio-labs/conduit-connector-mysql/test"
 	"github.com/go-sql-driver/mysql"
+	gover "github.com/hashicorp/go-version"
 	"github.com/matryer/is"
 )
 
@@ -39,6 +40,7 @@ func testCombinedIterator(ctx context.Context, t *testing.T, is *is.I) (common.I
 		serverID:            testutils.ServerID,
 		mysqlConfig:         config,
 		disableCanalLogging: true,
+		mysqlVer:            gover.Must(gover.NewVersion("8.0")),
 	})
 	is.NoErr(err)
 

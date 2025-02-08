@@ -24,6 +24,7 @@ import (
 	"github.com/conduitio-labs/conduit-connector-mysql/common"
 	"github.com/conduitio/conduit-commons/opencdc"
 	sdk "github.com/conduitio/conduit-connector-sdk"
+	gover "github.com/hashicorp/go-version"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -42,6 +43,7 @@ type fetchWorkerConfig struct {
 	table        string
 	fetchSize    uint64
 	sortColName  string
+	mysqlVer     *gover.Version
 }
 
 func newFetchWorker(db *sqlx.DB, data chan fetchData, config fetchWorkerConfig) fetchWorker {
@@ -110,7 +112,7 @@ func (w *fetchWorkerByKey) run(ctx context.Context) (err error) {
 
 	tx, err := w.db.BeginTxx(ctx, &sql.TxOptions{
 		Isolation: sql.LevelRepeatableRead,
-		ReadOnly:  true,
+		ReadOnly:  readOnlyTransactionsAllowed(w.config.mysqlVer),
 	})
 	if err != nil {
 		return fmt.Errorf("failed to create transaction: %w", err)
@@ -398,7 +400,7 @@ func (w *fetchWorkerByLimit) run(ctx context.Context) (err error) {
 
 	tx, err := w.db.BeginTxx(ctx, &sql.TxOptions{
 		Isolation: sql.LevelRepeatableRead,
-		ReadOnly:  true,
+		ReadOnly:  readOnlyTransactionsAllowed(w.config.mysqlVer),
 	})
 	if err != nil {
 		return fmt.Errorf("failed to create transaction: %w", err)
@@ -481,4 +483,13 @@ func (w *fetchWorkerByLimit) run(ctx context.Context) (err error) {
 	}
 
 	return nil
+}
+
+func readOnlyTransactionsAllowed(ver *gover.Version) bool {
+	// MySQL lower then 5.7 doesn't support read-only transactions.
+	// Read-only transactions are not such an important optimization to be
+	// deprived of lower MySQL versions.
+
+	minVer := gover.Must(gover.NewVersion("5.7"))
+	return ver.GreaterThanOrEqual(minVer)
 }

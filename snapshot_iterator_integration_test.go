@@ -26,6 +26,7 @@ import (
 	"github.com/conduitio-labs/conduit-connector-mysql/common"
 	testutils "github.com/conduitio-labs/conduit-connector-mysql/test"
 	"github.com/conduitio/conduit-commons/opencdc"
+	gover "github.com/hashicorp/go-version"
 	"github.com/matryer/is"
 	"go.uber.org/goleak"
 )
@@ -42,6 +43,7 @@ func testSnapshotIterator(ctx context.Context, t *testing.T, is *is.I) (common.I
 		database:         "meroxadb",
 		tables:           []string{"users"},
 		serverID:         serverID,
+		mysqlVer:         gover.Must(gover.NewVersion("8.0")),
 	})
 	is.NoErr(err)
 
@@ -75,6 +77,7 @@ func testSnapshotIteratorAtPosition(
 		database:         "meroxadb",
 		tables:           []string{"users"},
 		serverID:         serverID,
+		mysqlVer:         gover.Must(gover.NewVersion("8.0")),
 	})
 	is.NoErr(err)
 
@@ -278,6 +281,7 @@ func TestSnapshotIterator_CustomTableKeys(t *testing.T) {
 				database:         "meroxadb",
 				tables:           []string{testCase.tableName},
 				serverID:         serverID,
+				mysqlVer:         gover.Must(gover.NewVersion("8.0")),
 			})
 			is.NoErr(err)
 
@@ -339,6 +343,7 @@ func TestSnapshotIterator_DeleteEndWhileSnapshotting(t *testing.T) {
 		database:         "meroxadb",
 		tables:           []string{"users"},
 		serverID:         serverID,
+		mysqlVer:         gover.Must(gover.NewVersion("8.0")),
 	})
 	is.NoErr(err)
 
@@ -416,6 +421,7 @@ func TestSnapshotIterator_StringSorting(t *testing.T) {
 		database:         "meroxadb",
 		tables:           []string{tablename},
 		serverID:         serverID,
+		mysqlVer:         gover.Must(gover.NewVersion("8.0")),
 	})
 	is.NoErr(err)
 
@@ -486,6 +492,7 @@ func TestSnapshotIterator_FetchByLimit(t *testing.T) {
 		database:         "meroxadb",
 		tables:           []string{table1name, table2name},
 		serverID:         serverID,
+		mysqlVer:         gover.Must(gover.NewVersion("8.0")),
 		fetchSize:        5, // small fetch size to test pagination
 	})
 	is.NoErr(err)

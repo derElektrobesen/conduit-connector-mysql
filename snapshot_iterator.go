@@ -23,6 +23,7 @@ import (
 	"github.com/conduitio/conduit-commons/csync"
 	"github.com/conduitio/conduit-commons/opencdc"
 	sdk "github.com/conduitio/conduit-connector-sdk"
+	gover "github.com/hashicorp/go-version"
 	"github.com/jmoiron/sqlx"
 	"gopkg.in/tomb.v2"
 )
@@ -62,6 +63,7 @@ type (
 		database         string
 		tables           []string
 		serverID         string
+		mysqlVer         *gover.Version
 	}
 )
 
@@ -118,6 +120,7 @@ func (s *snapshotIterator) setupWorkers(ctx context.Context) error {
 			table:        table,
 			fetchSize:    s.config.fetchSize,
 			sortColName:  sortCol,
+			mysqlVer:     s.config.mysqlVer,
 		})
 
 		isTableEmpty, err := worker.fetchStartEnd(ctx)

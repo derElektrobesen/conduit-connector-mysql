@@ -1,4 +1,4 @@
-// Copyright © 2024 Meroxa, Inc.
+// Copyright © 2025 Meroxa, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,13 +12,35 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//go:build tools
-
-package main
+package mysql
 
 import (
-	_ "github.com/conduitio/conduit-connector-sdk/conn-sdk-cli"
-	_ "github.com/daixiang0/gci"
-	_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
-	_ "mvdan.cc/gofumpt"
+	"testing"
+
+	gover "github.com/hashicorp/go-version"
+	"github.com/matryer/is"
 )
+
+func TestReadOnlyTransactionsAllowed(t *testing.T) {
+	tests := []struct {
+		version string
+		want    bool
+	}{
+		{"5.5.62-log", false},
+		{"5.7.0", true},
+		{"5.7.44-log", true},
+		{"8.0.41", true},
+		{"8.0", true},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.version, func(t *testing.T) {
+			is := is.New(t)
+
+			ver, err := gover.NewVersion(tt.version)
+			is.NoErr(err)
+
+			is.Equal(readOnlyTransactionsAllowed(ver), tt.want)
+		})
+	}
+}

@@ -24,6 +24,7 @@ import (
 	"github.com/conduitio/conduit-commons/opencdc"
 	sdk "github.com/conduitio/conduit-connector-sdk"
 	mysqldriver "github.com/go-sql-driver/mysql"
+	gover "github.com/hashicorp/go-version"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -45,6 +46,7 @@ type combinedIteratorConfig struct {
 	serverID              string
 	mysqlConfig           *mysqldriver.Config
 	disableCanalLogging   bool
+	mysqlVer              *gover.Version
 }
 
 func newCombinedIterator(
@@ -71,6 +73,7 @@ func newCombinedIterator(
 		database:         config.database,
 		tables:           config.tables,
 		serverID:         config.serverID,
+		mysqlVer:         config.mysqlVer,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("failed to create snapshot iterator: %w", err)
