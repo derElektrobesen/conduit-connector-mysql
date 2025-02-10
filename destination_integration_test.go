@@ -18,10 +18,10 @@ import (
 	"context"
 	"testing"
 
-	"github.com/conduitio-labs/conduit-connector-mysql/common"
-	testutils "github.com/conduitio-labs/conduit-connector-mysql/test"
 	"github.com/conduitio/conduit-commons/opencdc"
 	sdk "github.com/conduitio/conduit-connector-sdk"
+	"github.com/derElektroBesen/conduit-connector-mysql/common"
+	testutils "github.com/derElektroBesen/conduit-connector-mysql/test"
 	"github.com/google/go-cmp/cmp"
 	"github.com/matryer/is"
 )

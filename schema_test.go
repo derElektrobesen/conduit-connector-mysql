@@ -20,8 +20,8 @@ import (
 	"testing"
 	"time"
 
-	testutils "github.com/conduitio-labs/conduit-connector-mysql/test"
 	"github.com/conduitio/conduit-connector-sdk/schema"
+	testutils "github.com/derElektroBesen/conduit-connector-mysql/test"
 	"github.com/google/go-cmp/cmp"
 	"github.com/hamba/avro/v2"
 	"github.com/matryer/is"

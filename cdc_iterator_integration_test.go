@@ -18,9 +18,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/conduitio-labs/conduit-connector-mysql/common"
-	testutils "github.com/conduitio-labs/conduit-connector-mysql/test"
 	"github.com/conduitio/conduit-commons/opencdc"
+	"github.com/derElektroBesen/conduit-connector-mysql/common"
+	testutils "github.com/derElektroBesen/conduit-connector-mysql/test"
 	"github.com/go-sql-driver/mysql"
 	"github.com/matryer/is"
 )
