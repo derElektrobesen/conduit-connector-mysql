@@ -20,9 +20,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/derElektroBesen/conduit-connector-mysql/common"
 	"github.com/conduitio/conduit-commons/opencdc"
 	sdk "github.com/conduitio/conduit-connector-sdk"
+	"github.com/derElektroBesen/conduit-connector-mysql/common"
 	mysqldriver "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 )
@@ -118,7 +118,7 @@ func newCombinedIterator(
 	iterator := &combinedIterator{
 		snapshotIterator: snapshotIterator,
 		cdcIterator:      cdcIterator,
-		currentIterator:  snapshotIterator,
+		currentIterator:  cdcIterator,
 	}
 
 	return iterator, nil

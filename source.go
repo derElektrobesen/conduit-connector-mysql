@@ -20,9 +20,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/derElektroBesen/conduit-connector-mysql/common"
 	"github.com/conduitio/conduit-commons/opencdc"
 	sdk "github.com/conduitio/conduit-connector-sdk"
+	"github.com/derElektroBesen/conduit-connector-mysql/common"
 	"github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 )
@@ -91,6 +91,8 @@ func (s *Source) Open(ctx context.Context, sdkPos opencdc.Position) (err error) 
 		}
 		pos = parsed
 	}
+
+	pos.CdcPosition = &common.CdcPosition{}
 
 	s.iterator, err = newCombinedIterator(ctx, combinedIteratorConfig{
 		db:                    s.db,
