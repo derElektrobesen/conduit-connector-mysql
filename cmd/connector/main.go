@@ -15,8 +15,8 @@
 package main
 
 import (
-	mysql "github.com/conduitio-labs/conduit-connector-mysql"
 	sdk "github.com/conduitio/conduit-connector-sdk"
+	mysql "github.com/derElektrobesen/conduit-connector-mysql"
 )
 
 func main() {

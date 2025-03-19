@@ -23,9 +23,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/conduitio-labs/conduit-connector-mysql/common"
-	testutils "github.com/conduitio-labs/conduit-connector-mysql/test"
 	"github.com/conduitio/conduit-commons/opencdc"
+	"github.com/derElektrobesen/conduit-connector-mysql/common"
+	testutils "github.com/derElektrobesen/conduit-connector-mysql/test"
 	"github.com/matryer/is"
 	"go.uber.org/goleak"
 )
