@@ -20,7 +20,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/conduitio-labs/conduit-connector-mysql/common"
+	"github.com/derElektrobesen/conduit-connector-mysql/common"
 	"github.com/conduitio/conduit-commons/opencdc"
 	sdk "github.com/conduitio/conduit-connector-sdk"
 	"github.com/go-sql-driver/mysql"

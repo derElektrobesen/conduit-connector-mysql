@@ -19,8 +19,8 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/conduitio-labs/conduit-connector-mysql/common"
-	testutils "github.com/conduitio-labs/conduit-connector-mysql/test"
+	"github.com/derElektrobesen/conduit-connector-mysql/common"
+	testutils "github.com/derElektrobesen/conduit-connector-mysql/test"
 	"github.com/matryer/is"
 )
 

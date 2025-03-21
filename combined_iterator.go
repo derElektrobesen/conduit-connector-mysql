@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/conduitio-labs/conduit-connector-mysql/common"
+	"github.com/derElektrobesen/conduit-connector-mysql/common"
 	"github.com/conduitio/conduit-commons/opencdc"
 	sdk "github.com/conduitio/conduit-connector-sdk"
 	mysqldriver "github.com/go-sql-driver/mysql"
